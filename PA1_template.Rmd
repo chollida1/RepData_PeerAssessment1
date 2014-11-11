@@ -110,7 +110,7 @@ daytype <- function(date) {
   }
 }
 
-activity$daytype <- as.factor(sapply(activity$date, daytype))
+data$daytype <- as.factor(sapply(data$date, daytype))
 
 ```
 
@@ -124,8 +124,8 @@ taken, averaged across all weekday days or weekend days
 par(mfrow=c(2,1))
 for (type in c("weekend", "weekday")) {
   steps.type <- aggregate(steps ~ interval,
-                          data=activity,
-                          subset=activity$daytype==type,
+                          data=data,
+                          subset=data$daytype==type,
                           FUN=mean)
   plot(steps.type, type="l", main=type)
 }
