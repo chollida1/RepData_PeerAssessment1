@@ -1,21 +1,48 @@
----
-title: 'Reproducible Research: Peer Assessment 1'
-output:
-  html_document:
-    keep_md: yes
-  pdf_document: default
----
-
-
 ## Loading and preprocessing the data
 ```{r}
 unzip("activity.zip")
-activity <- read.csv("activity.csv")
+data <- read.csv("activity.csv")
 ```
 
 ## What is mean total number of steps taken per day?
 
+1. Make a histogram of the total number of steps taken each day
+
+```{r}
+# aggregate the data by steps per day
+dates <- aggregate(steps ~ date, data = data, FUN = sum)
+# plot it 
+# using barplot as I can't figure out how to do properly x axis labelling
+barplot(dates$steps, names.arg = dates$date, xlab = "date", ylab = "steps")
+```
+
+2. Calculate and report the **mean** and **median** total number of
+steps taken per day
+
+```{r}
+mean(dates$steps)
+median(dates$steps)
+```
 ## What is the average daily activity pattern?
+
+1. Make a time series plot (i.e. `type = "l"`) of the 5-minute
+interval (x-axis) and the average number of steps taken, averaged
+across all days (y-axis)
+
+```{r}
+# again, use the awesome aggregate method to collect data of steps based on interval
+intervals <- aggregate(steps ~ interval, data = data, FUN = mean)
+plot(intervals, type = "l")
+```
+
+2. Which 5-minute interval, on average across all the days in the
+dataset, contains the maximum number of steps?
+
+```{r}
+# use the max method to index the intervals data frame to find the 5 minute
+# interval with the maxiumum number of steps
+intervals$interval[which.max(intervals$steps)]
+```
 
 ## Imputing missing values
 
