@@ -50,8 +50,7 @@ intervals$interval[which.max(intervals$steps)]
 dataset (i.e. the total number of rows with `NA`s)
 
 ```{r}
-# count how many values are missing
-sum(is.na(activity))
+sum(is.na(data))
 ```
 
 2. Devise a strategy for filling in all of the missing values in the
